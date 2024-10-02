@@ -11,7 +11,6 @@ import { db } from "~/utils/db.server";
 export async function loader({ params }: LoaderFunctionArgs) {
   const users = await db.user.findMany({});
   const user = users[0].id;
-  console.log(user);
   return user;
 }
 
@@ -70,8 +69,7 @@ export async function action({ request }: ActionFunctionArgs) {
   };
 
   if (Object.values(fieldErrors).some(Boolean)) {
-    console.log(fieldErrors);
-    return json({ fieldErrors }, { status: 400 });
+    return json({ fieldErrors });
   }
 
   const post = await db.post.create({
